@@ -4,7 +4,6 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>User</th>
       <th>Description</th>
       <th></th>
       <th></th>
@@ -16,7 +15,6 @@
     <% @wishlists.each do |wishlist| %>
       <tr>
         <td><%= wishlist.title %></td>
-        <td><%= wishlist.user %></td>
         <td><%= wishlist.description %></td>
         <td><%= link_to 'Show', wishlist %></td>
         <td><%= link_to 'Edit', edit_wishlist_path(wishlist) %></td>

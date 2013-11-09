@@ -12,6 +12,8 @@
 <% if user_signed_in? %>
   <%= link_to "Logout", destroy_user_session_path, method: :delete %>
   <%= link_to "Edit Profile", edit_user_registration_path %>
+  <%= link_to "Wishlist", wishlists_path %>
+
 <% end %>
 </p>
 
