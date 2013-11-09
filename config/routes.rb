@@ -1,4 +1,6 @@
 Basisapp::Application.routes.draw do
+  resources :wishlists
+
   devise_for :users
   resources :posts
   resources :comments
