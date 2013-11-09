@@ -10,6 +10,7 @@ class WishlistsController < ApplicationController
   # GET /wishlists/1
   # GET /wishlists/1.json
   def show
+    @wish = @wishlist.wishes.build
   end
 
   # GET /wishlists/new
