@@ -1,10 +1,10 @@
 Basisapp::Application.routes.draw do
   resources :wishlists
-
   devise_for :users
   resources :posts
   resources :comments
   resources :wishes
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.
