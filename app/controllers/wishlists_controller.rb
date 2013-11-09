@@ -1,6 +1,6 @@
 class WishlistsController < ApplicationController
   before_action :set_wishlist, only: [:show, :edit, :update, :destroy]
-
+  before_filter :authenticate_user!, except: [:index, :show]
   # GET /wishlists
   # GET /wishlists.json
   def index
