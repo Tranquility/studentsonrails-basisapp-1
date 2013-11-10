@@ -46,12 +46,12 @@
 				<li class=""><%= link_to "Edit Profile", edit_user_registration_path %></li>
 				<li class="divider"></li>
 				<% else %>
-				<li class="active"><%= link_to "Login", user_session, method: :create %></li>
+				<li class="active"><%= link_to "Login", new_user_session_path %></li>
 				<li class="divider"></li>
 				<% end %>
 			</ul>
 		</section>
-		
+
 	</nav>
 
 	<div class= "row">
