@@ -19,11 +19,19 @@ class WishesController < ApplicationController
  			format.html { redirect_to @wish.wishlist, notice: 'wish was successfully created.' }
  			format.json { render action: 'show', status: :created, location: @wish }
  		else
- 			format.html { render action: 'new' }
+            format.html { redirect_to @wish.wishlist, alert: @wish.errors.full_messages.join(',</br>').html_safe}
  			format.json { render json: @wish.errors, status: :unprocessable_entity }
  		end
  	end
  end
+
+def reserve
+    #Wish.find(params[:id]).occupied_flag = true
+    wish = Wish.find(params[:id])
+    wish.occupied_flag = true
+    wish.save
+    redirect_to wish.wishlist
+end
 
  private
     # Use callbacks to share common setup or constraints between actions.

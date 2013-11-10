@@ -1,5 +1,7 @@
 <h2><%= @wishlist.title %></h2>
 <p><%= @wishlist.description %></p>
+<p id="notice"><%= notice %></p>
+
 
 <div class="large-12">
   <div class="large-4 columns"><%= @wishlist.user.user_name %></div>
@@ -12,18 +14,31 @@
 	<p>Wünsche:</p>
 	<% @wishlist.wishes.each do |wish| %>
 		<% unless wish.new_record? %>
-		<div class="wish">
-		<%= wish.name %><br>
-		<%= wish.price %><br>
-		<a href=<%= wish.link %> target="_new">Jetzt kaufen!</a>
-		</div>
-	<% end %>
-	<% end %>
-
+    <% if user_signed_in? && current_user.id == @wishlist.user_id %>
+            <div class="not_occupied">
+            <%= wish.name %><br>
+            <%= wish.price %><br>
+            <%= link_to "Jetzt kaufen!", wish.link %>
+            </div>
+    <% else %>
+          <%if wish.occupied_flag? %> 
+            <% occupied_flag_value = "is_occupied" %>
+          <% else %>
+            <% occupied_flag_value = "not_occupied" %>
+          <% end %>
+        <div class="<%= occupied_flag_value %>">
+      <%= wish.name %><br>
+      <%= wish.price %><br>
+      <%= link_to "Jetzt kaufen!", wish.link %><br>
+      <%= link_to "Jetzt Wunsch reservieren!", reserve_path(wish.id) %> 
+      </div>  
+    <% end %>
+    <% end %>
+  <% end %>
 <% end %>
-
 <%= form_for(@wish) do |f| %>
   <% if @wish.errors.any? %>
+    <% @errors = @wish.errors%>
     <div id="error_explanation">
       <h2><%= pluralize(@wish.errors.count, "error") %> prohibited this wishlist from being saved:</h2>
 
@@ -34,6 +49,7 @@
       </ul>
     </div>
   <% end %>
+<p id="alert"><%= alert %></p>
 <div class="row collapse">
     <div class="small-3 large-2 columns">
       <span class="prefix"><%= f.label :name %></span>
@@ -64,8 +80,8 @@
   </div>
 <% end %>
 
-<%= link_to 'Edit', edit_wishlist_path(@wishlist) %> |
-<%= link_to 'Back', wishlists_path %>
+
+
 <%= form_tag(send_mail_wishlist_path, method:"post") do %>
 <div class="row collapse">
     <div class="small-3 large-2 columns">
@@ -79,5 +95,7 @@
           <%= submit_tag("Send to friend", :class => "button prefix") %> 
         </div>
   </div>
-
 <% end %> 
+
+<%= link_to 'Edit', edit_wishlist_path(@wishlist) %> |
+<%= link_to 'Back', wishlists_path %>

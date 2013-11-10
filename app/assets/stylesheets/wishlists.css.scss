@@ -2,6 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.wish{
+.is_occupied{
 	margin-bottom: 20px;
+	opacity: 0.5;
+}
+.is_occupied a{
+	display:none;
+}
+.not_occupied{
+	margin-bottom: 20px;
+}
+
+#alert{
+	color:red;
 }
