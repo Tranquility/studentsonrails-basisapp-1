@@ -2,11 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.is_occupied{
+.is_occupied td{
 	margin-bottom: 20px;
-	opacity: 0.5;
+	opacity: 0.7;
+	background-color: #3AD17A;
 }
-.is_occupied a{
+.is_occupied td a{
 	display:none;
 }
 .not_occupied{
