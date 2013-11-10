@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131109154749) do
+ActiveRecord::Schema.define(version: 20131110103852) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20131109154749) do
     t.integer  "wishlist_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "occupied_flag", default: false
   end
 
   add_index "wishes", ["wishlist_id"], name: "index_wishes_on_wishlist_id"

@@ -9,6 +9,8 @@ Basisapp::Application.routes.draw do
   resources :comments
   resources :wishes
 
+  get 'wishes/reserve/:id' => 'wishes#reserve', as: :reserve 
+
 
 
 
