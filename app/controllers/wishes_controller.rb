@@ -1,6 +1,6 @@
 class WishesController < ApplicationController
 	before_action :set_wish, only: [:show, :edit, :update, :destroy]
-	before_filter :authenticate_user!, except: [:index, :show]
+	before_filter :authenticate_user!, except: [:index, :show, :reserve]
 
  # GET /wishs/new
  def new

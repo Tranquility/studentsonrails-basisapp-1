@@ -14,37 +14,37 @@
     <br><br><br>
 </div>
    
-  <div class="large-8 columns text-right"></div>
 </div>
 <br></br>
 <% if @wishlist.wishes.first.new_record? %>
-	<p>No wishes in this wishlist!</p>
+	<div class="text-left"><h3>No wishes in this wishlist!</h3></div>
 <% else %>
-	<p><%= @wishlist.user.user_name %> dreams of:</p>
-
-		<table class="large-12 column">
+	<div class="text-left"><h3><%= @wishlist.user.user_name %> dreams of:</h3></div>
 	<% @wishlist.wishes.each do |wish| %>
+
 		<% unless wish.new_record? %>
 
+
     <% if user_signed_in? && current_user.id == @wishlist.user_id %>
-  	        	<tr class="not_occupied">
-	              <td class="large-9"><%= wish.name %></td>
-	              <td class="large-1"><%= wish.price %> &euro;</td>
-	              <td class="large-1"><%= link_to "Edit", edit_wish_path(wish.id) %></td>
-	              <td class="large-1"><%= link_to 'Destroy', wish, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-	            </tr>
-    <% else %>
-          <%if wish.occupied_flag? %> 
-            <% occupied_flag_value = "is_occupied" %>
+  	        	<div class="panel not_occupied">
+	              <%= wish.name %><br>
+	              <%= wish.price %> &euro;<br>
+	              <%= link_to "Edit", edit_wish_path(wish.id) %><br>
+	              <%= link_to 'Destroy', wish, method: :delete, data: { confirm: 'Are you sure?' } %>
+	            </div>
+    <% else %>         
+
+          <%if wish.occupied_flag? %>
+            <% occupied_flag_value = "panel is_occupied" %>
           <% else %>
-            <% occupied_flag_value = "not_occupied" %>
+            <% occupied_flag_value = "panel not_occupied" %>
           <% end %>
-			<tr class="<%= occupied_flag_value %>">
-              <td class="large-6"><%= wish.name %></td>
-              <td class="large-1"><%= wish.price %> &euro;</td>
-              <td class="large-2"><%= link_to "Jetzt kaufen!", wish.link %></td>
-              <td class="large-3"><%= link_to "Jetzt Wunsch reservieren!", reserve_path(wish.id) %> </td>
-			</tr> 
+			<div class="<%= occupied_flag_value %>">
+              <%= wish.name %><br>
+              <%= wish.price %> &euro;<br>
+              <%= link_to "Buy now!", wish.link %><br>
+              <%= link_to "Reserve this wish!", reserve_path(wish.id) %><br>
+			</div> 
     <% end %>
     <% end %>
   <% end %>
