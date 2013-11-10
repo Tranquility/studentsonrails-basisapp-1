@@ -1,0 +1,44 @@
+<%= form_for(@wish) do |f| %>
+  <% if @wish.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@wish.errors.count, "error") %> prohibited this wishlist from being saved:</h2>
+
+      <ul>
+      <% @wish.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row collapse">
+    <div class="small-3 large-2 columns">
+      <span class="prefix"><%= f.label :name %></span>
+    </div>
+        <div class="small-9 large-10 columns">
+          <%= f.text_field :name %>
+        </div>
+  </div>
+
+    <div class="row collapse">
+    <div class="small-3 large-2 columns">
+      <span class="prefix"><%= f.label :price %></span>
+    </div>
+        <div class="small-9 large-10 columns">
+          <%= f.text_field :price %>
+        </div>
+  </div>
+
+    <div class="row collapse">
+    <div class="small-3 large-2 columns">
+      <span class="prefix"><%= f.label :link %></span>
+    </div>
+        <div class="small-9 large-10 columns">
+          <%= f.text_field :link %>
+        </div>
+  </div>
+
+  <%= f.hidden_field :wishlist_id %>
+  <div class="actions">
+    <%= f.submit :class => "button" %>
+  </div>
+<% end %>

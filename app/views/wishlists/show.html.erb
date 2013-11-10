@@ -9,33 +9,38 @@
 </div>
 <br></br>
 <% if @wishlist.wishes.first.new_record? %>
-	<p>Keine Wünsche</p>
+	<h5>Keine Wünsche:</h5>
 <% else %>
-	<p>Wünsche:</p>
+	<h5>Wünsche:</h5>
+		<table class="large-12 column">
 	<% @wishlist.wishes.each do |wish| %>
 		<% unless wish.new_record? %>
+
     <% if user_signed_in? && current_user.id == @wishlist.user_id %>
-            <div class="not_occupied">
-            <%= wish.name %><br>
-            <%= wish.price %><br>
-            <%= link_to "Jetzt kaufen!", wish.link %>
-            </div>
+  	        	<tr class="not_occupied">
+	              <td class="large-9"><%= wish.name %></td>
+	              <td class="large-1"><%= wish.price %> &euro;</td>
+	              <td class="large-1"><%= link_to "Edit", edit_wish_path(wish.id) %></td>
+	              <td class="large-1"><%= link_to 'Destroy', wish, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+	            </tr>
     <% else %>
           <%if wish.occupied_flag? %> 
             <% occupied_flag_value = "is_occupied" %>
           <% else %>
             <% occupied_flag_value = "not_occupied" %>
           <% end %>
-        <div class="<%= occupied_flag_value %>">
-      <%= wish.name %><br>
-      <%= wish.price %><br>
-      <%= link_to "Jetzt kaufen!", wish.link %><br>
-      <%= link_to "Jetzt Wunsch reservieren!", reserve_path(wish.id) %> 
-      </div>  
+			<tr class="<%= occupied_flag_value %>">
+              <td class="large-6"><%= wish.name %></td>
+              <td class="large-1"><%= wish.price %> &euro;</td>
+              <td class="large-2"><%= link_to "Jetzt kaufen!", wish.link %></td>
+              <td class="large-3"><%= link_to "Jetzt Wunsch reservieren!", reserve_path(wish.id) %> </td>
+			</tr> 
     <% end %>
     <% end %>
   <% end %>
 <% end %>
+
+          </table>
 <%= form_for(@wish) do |f| %>
   <% if @wish.errors.any? %>
     <% @errors = @wish.errors%>
@@ -49,36 +54,38 @@
       </ul>
     </div>
   <% end %>
-<p id="alert"><%= alert %></p>
-<div class="row collapse">
-    <div class="small-3 large-2 columns">
-      <span class="prefix"><%= f.label :name %></span>
-    </div>
-        <div class="small-9 large-10 columns">
-          <%= f.text_field :name %>
-        </div>
-  </div>
-<div class="row collapse">
-    <div class="small-3 large-2 columns">
-      <span class="prefix"><%= f.label :price %></span>
-    </div>
-        <div class="small-9 large-10 columns">
-          <%= f.text_field :price %>
-        </div>
-  </div>
-  <div class="row collapse">
-    <div class="small-3 large-2 columns">
-      <span class="prefix"><%= f.label :link %></span>
-    </div>
-        <div class="small-9 large-10 columns">
-          <%= f.text_field :link %>
-        </div>
-  </div>
-  <%= f.hidden_field :wishlist_id %>
-  <div class="actions">
-    <%= f.submit "Create Wish", :class => "button" %>
-  </div>
-<% end %>
+  <% if user_signed_in? %>
+		<p id="alert"><%= alert %></p>
+		<div class="row collapse">
+		    <div class="small-3 large-2 columns">
+		      <span class="prefix"><%= f.label :name %></span>
+		    </div>
+		        <div class="small-9 large-10 columns">
+		          <%= f.text_field :name %>
+		        </div>
+		  </div>
+		<div class="row collapse">
+		    <div class="small-3 large-2 columns">
+		      <span class="prefix"><%= f.label :price %></span>
+		    </div>
+		        <div class="small-9 large-10 columns">
+		          <%= f.text_field :price %>
+		        </div>
+		  </div>
+		  <div class="row collapse">
+		    <div class="small-3 large-2 columns">
+		      <span class="prefix"><%= f.label :link %></span>
+		    </div>
+		        <div class="small-9 large-10 columns">
+		          <%= f.text_field :link %>
+		        </div>
+		  </div>
+		  <%= f.hidden_field :wishlist_id %>
+		  <div class="actions">
+		    <%= f.submit "Create Wish", :class => "button" %>
+		  </div>
+		<% end %>
+ <% end %>
 
 
 

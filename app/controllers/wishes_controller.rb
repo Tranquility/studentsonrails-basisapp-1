@@ -11,9 +11,7 @@ class WishesController < ApplicationController
  end
 
  def create
-
  	@wish = Wish.new(wish_params)
-
  	respond_to do |format|
  		if @wish.save
  			format.html { redirect_to @wish.wishlist, notice: 'wish was successfully created.' }
@@ -24,6 +22,31 @@ class WishesController < ApplicationController
  		end
  	end
  end
+
+def edit
+    #wish = Wish.find(params[:id])
+   # redirect_to wish.wishlist   
+end
+
+ def update
+    respond_to do |format|
+        if @wish.update(wish_params)
+            format.html { redirect_to @wish.wishlist, notice: 'wish was successfully updated.' }
+            format.json { head :no_content }
+        else
+           format.html { render action: 'edit' }
+            format.json { render json: @wish.errors, status: :unprocessable_entity }
+        end
+    end
+ end
+
+def destroy
+    @wish.destroy
+    respond_to do |format|
+      format.html { redirect_to @wish.wishlist }
+      format.json { head :no_content }
+    end
+end
 
 def reserve
     #Wish.find(params[:id]).occupied_flag = true
