@@ -1,23 +1,69 @@
 <!DOCTYPE html>
-<html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
 <head>
-  <title>Basisapp</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
+	<meta charset="utf-8" />
+
+	<!-- Uncomment to make IE8 render like IE7 -->
+	<!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+	<title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+
+	<%= stylesheet_link_tag    "application" %>
+	<%= javascript_include_tag "vendor/custom.modernizr" %>
+	<%= csrf_meta_tags %>
 </head>
+
 <body>
 
-<p>
-<% if user_signed_in? %>
-  <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-  <%= link_to "Edit Profile", edit_user_registration_path %>
-  <%= link_to "Wishlist", wishlists_path %>
 
-<% end %>
-</p>
 
-<%= yield %>
+	<nav class="top-bar">
+		<ul class="title-area">
+			<!-- Title Area -->
+			<li class="name">
+				<h1><a href="#">Weihnachtsmann.com</a></h1>
+			</li>
+			<!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+			<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+		</ul>
 
+		
+		<section class="top-bar-section">
+			<!-- Left Nav Section -->
+			<ul class="left">
+				<% if user_signed_in? %>
+				<li class="divider"></li>
+				<li class="active"><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+				<li class="divider"></li>
+				<li class=""><%= link_to 'New Post', new_post_path %></li>
+				<li class="divider"></li>
+				<li class=""><%= link_to "Wishlist", wishlists_path %></li>
+				<li class="divider"></li>
+				<li class=""><%= link_to "Edit Profile", edit_user_registration_path %></li>
+				<li class="divider"></li>
+				<% else %>
+				<li class="active"><%= link_to "Login", user_session, method: :create %></li>
+				<li class="divider"></li>
+				<% end %>
+			</ul>
+		</section>
+		
+	</nav>
+
+	<div class= "row">
+	<div class="smal-6 large-centered columns">
+
+		<%= yield %>
+	</div>
+</div>
+
+<%= javascript_include_tag "application" %>
 </body>
 </html>

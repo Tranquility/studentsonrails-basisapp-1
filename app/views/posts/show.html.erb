@@ -1,58 +1,48 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
+<h2><%= @post.title %></h2>
+<p><%= @post.content %></p>
 
-<p>
-  <strong>Content:</strong>
-  <%= @post.content %>
-</p>
-
-<p>
-  <strong>Author</strong>
-  <%= @post.user.user_name %>
-</p>
-
-<p>
-  <strong>Date</strong>
-  <%= @post.created_at %>
-</p>
-
+<div class="large-12">
+	<div class="large-4 columns"><%= @post.user.user_name %></div>
+	<div class="large-8 columns text-right"><%= @post.created_at %></div>
+</div>
+<br></br>
 <% if @comment.blank? %>
-	<p>Keine Kommentare</p>
+<h4>Keine Kommentare</h4>
 <% else %>
-	<p>Kommentare</p>
-	<% @post.comments.each do |comment| %>
-		<div class="comment"><%= comment.content %></div>
-	<% end %>
-
+<h4>Kommentare</h4>
+<% @post.comments.each do |comment| %>
+<div class="comment"><%= comment.content %></div>
+<% end %>
 <% end %>
 
-
 <% if user_signed_in? %>
-	<%= form_for(@comment) do |f| %>
-	  <% if @comment.errors.any? %>
-	    <div id="error_explanation">
-	      <h2><%= pluralize(@comment.errors.count, "error") %> prohibited this post from being saved:</h2>
-	      <ul>
-	      <% @comment.errors.full_messages.each do |msg| %>
-	        <li><%= msg %></li>
-	      <% end %>
-	      </ul>
-	    </div>
-	  <% end %>
+<%= form_for(@comment) do |f| %>
+<% if @comment.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@comment.errors.count, "error") %> prohibited this post from being saved:</h2>
+	<ul>
+		<% @comment.errors.full_messages.each do |msg| %>
+		<li><%= msg %></li>
+		<% end %>
+	</ul>
+</div>
+<% end %>
 
-	  <div class="field">
-	    <%= f.label "Kommentar schreiben:" %><br>
-	    <%= f.text_area :content %>
-	    <%= f.hidden_field :post_id %>
-	  </div>
-	  <div class="actions">
-	    <%= f.submit %>
-	  </div>
-	<% end %>
+<div class="row collapse">
+	<div class="small-3 large-2 columns">
+		<span class="prefix">Kommentar schreiben</span>
+	</div>
+	<div class="small-9 large-10 columns">
+		<%= f.text_area :content %>
+	</div>
+</div>
+
+<div class="actions">
+	<%= f.submit :class => "button" %>
+</div>
+<%= f.hidden_field :post_id %>
+<% end %>
 <% end %>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |
