@@ -15,6 +15,53 @@
   <%= @wishlist.description %>
 </p>
 
+<% if @wishlist.wishes.first.new_record? %>
+	<p>Keine Wünsche</p>
+<% else %>
+	<p>Wünsche:</p>
+	<% @wishlist.wishes.each do |wish| %>
+		<% unless wish.new_record? %>
+		<div class="wish">
+		<%= wish.name %><br>
+		<%= wish.price %><br>
+		<a href=<%= wish.link %> target="_new">Jetzt kaufen!</a>
+		</div>
+	<% end %>
+	<% end %>
+
+<% end %>
+
+<%= form_for(@wish) do |f| %>
+  <% if @wish.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@wish.errors.count, "error") %> prohibited this wishlist from being saved:</h2>
+
+      <ul>
+      <% @wish.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br>
+    <%= f.text_field :price %>
+  </div>
+  <div class="field">
+    <%= f.label :link %><br>
+    <%= f.text_field :link %>
+  </div>
+  <%= f.hidden_field :wishlist_id %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
 <%= link_to 'Edit', edit_wishlist_path(@wishlist) %> |
 <%= link_to 'Back', wishlists_path %>
 <%= form_tag(send_mail_wishlist_path, method:"post") do %>

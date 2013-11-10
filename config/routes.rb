@@ -7,7 +7,8 @@ Basisapp::Application.routes.draw do
   devise_for :users
   resources :posts
   resources :comments
-   :email
+  resources :wishes
+
 
 
 
