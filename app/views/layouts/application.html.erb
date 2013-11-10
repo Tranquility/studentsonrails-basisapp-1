@@ -29,6 +29,7 @@
 	  js.src = "//connect.facebook.net/de_DE/all.js#xfbml=1";
 	  fjs.parentNode.insertBefore(js, fjs);
 	}(document, 'script', 'facebook-jssdk'));</script>
+	
 	<nav class="top-bar">
 		<ul class="title-area">
 			<!-- Title Area -->
@@ -67,17 +68,8 @@
 
 		<%= yield %>
 	</div>
-<div>
-    <a data-behavior="play_first_or_existing_track_on_page" href="#" class="button">Play Last Christmas</a>
-    <ul data-music-container class="inline-list">
-        <li data-track-container>
-            <a data-audio-track data-behavior="play_audio_track" data-id="1" data-title="Christmas Song" data-url="/music/christmas.m4a" href="#">
-                <i class="icon-play"></i>
-            </a>
-        </li>
-    </ul>
 </div>
-</div>
+
 <%= javascript_include_tag "application" %>
 </body>
 </html>
