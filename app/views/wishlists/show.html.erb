@@ -68,3 +68,7 @@
 
 <%= link_to 'Edit', edit_wishlist_path(@wishlist) %> |
 <%= link_to 'Back', wishlists_path %>
+<%= form_tag(send_mail_wishlist_path, method:"post") do %>
+<%= text_field_tag(:email) %> 
+<%= submit_tag("Send to friend") %> 
+<% end %> 

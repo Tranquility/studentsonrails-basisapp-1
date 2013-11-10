@@ -1,9 +1,14 @@
 Basisapp::Application.routes.draw do
-  resources :wishlists
+  resources :wishlists do
+    member do 
+      post 'send_mail'
+    end
+  end
   devise_for :users
   resources :posts
   resources :comments
   resources :wishes
+
 
 
 

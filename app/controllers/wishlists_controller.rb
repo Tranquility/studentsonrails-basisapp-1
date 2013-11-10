@@ -7,6 +7,11 @@ class WishlistsController < ApplicationController
     @wishlists = Wishlist.all
   end
 
+  def send_mail
+    WishlistSharing.send_to_friend(params[:id], params[:email]).deliver
+    redirect_to wishlists_url
+  end
+
   # GET /wishlists/1
   # GET /wishlists/1.json
   def show
