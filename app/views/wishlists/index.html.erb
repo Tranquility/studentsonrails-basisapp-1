@@ -5,21 +5,15 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Description</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Username</th>
     </tr>
   </thead>
 
   <tbody>
     <% @wishlists.each do |wishlist| %>
       <tr>
-        <td><%= wishlist.title %></td>
-        <td><%= wishlist.description %></td>
-        <td><%= link_to 'Show', wishlist %></td>
-        <td><%= link_to 'Edit', edit_wishlist_path(wishlist) %></td>
-        <td><%= link_to 'Destroy', wishlist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to wishlist.title, wishlist %></td>
+        <td><%= wishlist.user.user_name %></td>
       </tr>
     <% end %>
   </tbody>
